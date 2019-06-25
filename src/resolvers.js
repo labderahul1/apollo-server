@@ -1,6 +1,4 @@
 const Todos = require( './todos');
-// const Category = require( './category');
-// const Projects = require( './projects');
 
 const resolvers = {
   Query: {
@@ -33,8 +31,15 @@ const resolvers = {
       Todos[todoIndex] = updateInput;
       return Todos;
     },
-    deleteTodo(_, { todoId: id }) {
-      let deletedItem = Todos.splice(0, 1)[0];
+    deleteTodo(_, { todoId }) {
+      const todoIndex = Todos.findIndex((element) => element.id === todoId );
+      let deletedTodo = Todos.splice(todoIndex, 1)[0];
+			return deletedTodo;
+		},
+    deleteItem(_, { todoId, itemId }) {
+      const todo = Todos.find((element) => element.id === todoId );
+      let itemIndex = todo.todoActivity.findIndex((element) => element.id === itemId );
+      let deletedItem = todo.todoActivity.splice(itemIndex, 1)[0];
 			return deletedItem;
 		}
 	},
