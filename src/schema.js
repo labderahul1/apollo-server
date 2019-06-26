@@ -27,6 +27,7 @@ type Mutation {
   updateTodo(id: String, updateInput: addTodo): Todo
   deleteTodo(todoId: String): Todo
   deleteItem(todoId: String, itemId: String): Activity
+  updateItem(todoId: String, itemId: String, updateVal: activity): Activity
 }
 
 input activity {

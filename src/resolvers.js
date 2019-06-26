@@ -41,6 +41,12 @@ const resolvers = {
       let itemIndex = todo.todoActivity.findIndex((element) => element.id === itemId );
       let deletedItem = todo.todoActivity.splice(itemIndex, 1)[0];
 			return deletedItem;
+		},
+    updateItem(_, { todoId, itemId, updateVal }) {
+      const todo = Todos.find((element) => element.id === todoId );
+      let item = todo.todoActivity.find((element) => element.id === itemId );
+      item = Object.assign(item, updateVal);
+			return item;
 		}
 	},
 };
