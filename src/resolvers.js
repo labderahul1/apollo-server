@@ -11,20 +11,18 @@ const resolvers = {
 }
 },
   Mutation: {
-		createTodo(_, { todoInput: {id, label, todoStatus, description, todoActivity}, todoInput}) {
+		createTodo(_, { todoInput: {todoId, todoLabel, itemsList}}) {
       let obj = new Object();      
-      obj.id = id;
-      obj.label = label;
-      obj.todoStatus = todoStatus;
-      obj.todoActivity = todoActivity;
-      obj.description = description;
+      obj.todoId = todoId;
+      obj.todoLabel = todoLabel;
+      obj.itemsList = itemsList;
       Todos.push(obj);
-			return {id, label, todoStatus, description, todoActivity};
+			return obj;
     },
-    addTodoActivity(_, { id, todoActivity }) {  
-      const todo = Todos.find((element) => element.id === id );      
-      todo.todoActivity.push(todoActivity);
-      return todoActivity;
+    insertItem(_, { todoId, todoItem }) {  
+      const todo = Todos.find((element) => element.todoId === todoId );      
+      todo.itemsList.push(todoItem);
+      return todoItem;
     },
     updateTodo(_, { id, updateInput }) {  
       const todoIndex = Todos.findIndex((element) => element.id === id );   
@@ -32,19 +30,19 @@ const resolvers = {
       return Todos;
     },
     deleteTodo(_, { todoId }) {
-      const todoIndex = Todos.findIndex((element) => element.id === todoId );
+      const todoIndex = Todos.findIndex((element) => element.todoId === todoId );
       let deletedTodo = Todos.splice(todoIndex, 1)[0];
 			return deletedTodo;
 		},
     deleteItem(_, { todoId, itemId }) {
-      const todo = Todos.find((element) => element.id === todoId );
-      let itemIndex = todo.todoActivity.findIndex((element) => element.id === itemId );
-      let deletedItem = todo.todoActivity.splice(itemIndex, 1)[0];
+      const todo = Todos.find((element) => element.todoId === todoId );
+      let itemIndex = todo.itemsList.findIndex((element) => element.itemId === itemId );
+      let deletedItem = todo.itemsList.splice(itemIndex, 1)[0];
 			return deletedItem;
 		},
     updateItem(_, { todoId, itemId, updateVal }) {
-      const todo = Todos.find((element) => element.id === todoId );
-      let item = todo.todoActivity.find((element) => element.id === itemId );
+      const todo = Todos.find((element) => element.todoId === todoId );
+      let item = todo.itemsList.find((element) => element.itemId === itemId );
       item = Object.assign(item, updateVal);
 			return item;
 		}

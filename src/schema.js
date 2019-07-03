@@ -8,40 +8,36 @@ type Query {
 }
 
 type Todo {
-  id: String
-  label: String
-  todoActivity: [Activity]
-  description: String
-  todoStatus: String
+  todoId: String
+  todoLabel: String
+  itemsList: [Items]
 }
 
-type Activity {
-  id: String
-  label: String
+type Items {
+  itemId: String
+  itemLabel: String
   status: String
 }
 
 type Mutation {
   createTodo(todoInput: addTodo): Todo
-  addTodoActivity(id: String, todoActivity: activity): Activity
-  updateTodo(id: String, updateInput: addTodo): Todo
+  insertItem(todoId: String, todoItem: addItems): Items
+  updateTodo(todoId: String, updateInput: addTodo): Todo
   deleteTodo(todoId: String): Todo
-  deleteItem(todoId: String, itemId: String): Activity
-  updateItem(todoId: String, itemId: String, updateVal: activity): Activity
+  deleteItem(todoId: String, itemId: String): Items
+  updateItem(todoId: String, itemId: String, updateVal: addItems): Items
 }
 
-input activity {
-  id: String
-  label: String
+input addItems {
+  itemId: String
+  itemLabel: String
   status: String
 }
 
 input addTodo {
-	id: String
-  label: String
-  description: String
-  todoActivity: [activity]
-  todoStatus: String
+	todoId: String
+  todoLabel: String
+  itemsList: [addItems]
 }
 `;
 
